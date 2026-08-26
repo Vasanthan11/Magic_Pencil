@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch & Learn — Video Session</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#FF7A1A;
+    --orange-deep:#F2650A;
+    --teal:#19B7C9;
+    --purple:#7B5CE8;
+    --sun:#FFC93C;
+    --paper:#FFF8EF;
+    --ink:#3A2A1E;
+    --card:#FFFFFF;
+    --shadow: 0 10px 24px rgba(180, 90, 10, 0.25);
+    --purple-btn:#5B37D6;
+  }
+
+  *{box-sizing:border-box;}
+
+  html, body{
+    margin:0;
+    height:100%;
+  }
+
+  body{
+    font-family:'Poppins', sans-serif;
+    background:var(--orange);
+    overflow-x:hidden;
+  }
+
+  .video-session{
+    position:relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding: 56px 0 200px;
+    background: radial-gradient(circle at 15% 20%, rgba(255,255,255,0.12), transparent 40%),
+                linear-gradient(180deg, var(--orange) 0%, var(--orange-deep) 100%);
+    overflow:hidden;
+  }
+
+  .session-head{
+    text-align:center;
+    animation: headingRise .9s cubic-bezier(.2,.8,.25,1) both;
+    margin-bottom: 30px;
+  }
+
+  .session-heading{
+    font-family:'Fredoka', sans-serif;
+    font-weight:700;
+    font-size: clamp(24px, 3.6vw, 38px);
+    color:#fff;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    text-shadow: 0 4px 0 rgba(0,0,0,0.14);
+    margin: 0 0 10px;
+  }
+
+  .session-subheading{
+    color: #FFE7CE;
+    font-family:'Poppins', sans-serif;
+    font-weight:500;
+    font-size: clamp(13px, 2vw, 17px);
+    margin: 0;
+  }
+
+  @keyframes headingRise{
+    from{ opacity:0; transform: translateY(-26px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .rows-wrap{
+    flex: 1;
+    min-height: 0;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap: 28px;
+  }
+
+  .btn{
+    font-family:'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.92rem;
+    border:none;
+    cursor:pointer;
+    border-radius: 999px;
+    display:inline-flex;
+    align-items:center;
+    gap: 8px;
+    transition: transform .18s ease, box-shadow .18s ease;
+    position:relative;
+    overflow:hidden;
+    margin-top: 34px;
+    z-index: 6;
+  }
+  .btn:hover{
+    transform: translateY(-2px);
+  }
+  .btn-subscribe{
+    background: var(--purple-btn);
+    color:#fff;
+    padding: 11px 10px 11px 22px;
+    box-shadow: 0 8px 18px rgba(83, 49, 205, 0.28);
+  }
+  .btn-subscribe:hover{
+    box-shadow: 0 10px 22px rgba(83, 49, 205, 0.38);
+  }
+  .btn-subscribe::before{
+    content:'';
+    position:absolute;
+    top:0; left:-45%;
+    width:30%; height:100%;
+    background: linear-gradient(115deg, transparent, rgba(255,255,255,0.6), transparent);
+    transform: skewX(-18deg);
+    animation: shine-sweep 3.4s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  @keyframes shine-sweep{
+    0%{ left:-45%; }
+    30%{ left:130%; }
+    100%{ left:130%; }
+  }
+  .btn .arrow-circ{
+    position:relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 0.7rem;
+    flex-shrink:0;
+  }
+  .btn .arrow-circ svg{
+    position:relative;
+    z-index:2;
+    animation: play-nudge 1.8s ease-in-out infinite;
+  }
+  .btn .arrow-circ::before{
+    content:'';
+    position:absolute;
+    inset:-7px;
+    border-radius:50%;
+    border:1.6px solid rgba(255,255,255,0.75);
+    animation: ring-pulse 1.8s ease-out infinite;
+  }
+  .btn .arrow-circ::after{
+    content:'';
+    position:absolute;
+    inset:-3px;
+    border-radius:50%;
+    border:1.6px solid rgba(255,255,255,0.55);
+    animation: ring-pulse 1.8s ease-out infinite;
+    animation-delay: .5s;
+  }
+  @keyframes ring-pulse{
+    0%{ transform: scale(0.75); opacity:0.9; }
+    75%{ transform: scale(1.9); opacity:0; }
+    100%{ transform: scale(1.9); opacity:0; }
+  }
+  @keyframes play-nudge{
+    0%, 100%{ transform: translateX(0); }
+    50%{ transform: translateX(1px) scale(1.08); }
+  }
+
+  /* ---------- Marquee rows ---------- */
+  .marquee-row{
+    position:relative;
+    width:100%;
+    overflow:hidden;
+    padding: 10px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    gap: 20px;
+    will-change: transform;
+  }
+
+  .marquee-row.top .marquee-track{
+    animation: scrollRightward 38s linear infinite;
+  }
+  .marquee-row.bottom .marquee-track{
+    animation: scrollLeftward 42s linear infinite;
+  }
+
+  .marquee-row.paused .marquee-track{
+    animation-play-state: paused;
+  }
+
+  @keyframes scrollRightward{
+    from{ transform: translateX(-50%); }
+    to{ transform: translateX(0%); }
+  }
+  @keyframes scrollLeftward{
+    from{ transform: translateX(0%); }
+    to{ transform: translateX(-50%); }
+  }
+
+  /* ---------- Video tile ---------- */
+  .video-tile{
+    position:relative;
+    flex: 0 0 auto;
+    width: 270px;
+    height: 168px;
+    border-radius: 16px;
+    overflow:hidden;
+    background: var(--card);
+    box-shadow: var(--shadow);
+    border: 4px solid #fff;
+    cursor:pointer;
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .video-tile:hover{
+    transform: rotate(0deg) scale(1.05);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.3);
+  }
+  .video-tile img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    display:block;
+    pointer-events:none;
+  }
+  .video-tile .play-badge{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+  }
+  .video-tile .play-badge svg{
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.45));
+  }
+  .video-tile .tile-title{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding: 6px 8px 5px;
+    font-family:'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight:600;
+    color:#fff;
+    background: linear-gradient(0deg, rgba(0,0,0,0.65), transparent);
+    pointer-events:none;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  /* alternate tilt for playful stacked feel */
+  .marquee-track .video-tile:nth-child(3n){ --tilt: 1.5deg; }
+  .marquee-track .video-tile:nth-child(3n+1){ --tilt: -1.5deg; }
+  .marquee-track .video-tile:nth-child(3n+2){ --tilt: 0.5deg; }
+
+  /* ---------- Spotlight overlay ---------- */
+  .spotlight-overlay{
+    position:absolute;
+    inset:0;
+    background: rgba(15, 10, 5, 0.72);
+    backdrop-filter: blur(2px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .5s ease;
+    z-index: 20;
+    border-radius: inherit;
+  }
+  .spotlight-overlay.active{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .spotlight-card{
+    width: min(78vw, 460px);
+    aspect-ratio: 16/9;
+    border-radius: 20px;
+    overflow:hidden;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.55);
+    border: 6px solid #fff;
+    transform: scale(0.85);
+    transition: transform .5s cubic-bezier(.25,1.4,.4,1);
+    position:relative;
+    cursor:pointer;
+    background:#000;
+  }
+  .spotlight-overlay.active .spotlight-card{
+    transform: scale(1);
+  }
+  .spotlight-card iframe{
+    width:100%;
+    height:100%;
+    border:0;
+    pointer-events:none;
+  }
+  .spotlight-card .spot-title{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding: 12px 16px;
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    color:#fff;
+    background: linear-gradient(0deg, rgba(0,0,0,0.75), transparent);
+  }
+  .spotlight-card .click-hint{
+    position:absolute;
+    top:10px; right:12px;
+    background: rgba(255,255,255,0.9);
+    color: var(--orange-deep);
+    font-family:'Fredoka', sans-serif;
+    font-size:11px;
+    font-weight:700;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  /* ---------- Animated bottom wave (3-layer flowing gradient, matching reference) ---------- */
+  .wave{
+    overflow:hidden;
+    position:absolute;
+    left:0; right:0; bottom:-2px;
+    height: 220px;
+    z-index: 5;
+    pointer-events:none;
+  }
+  .wave-svg{
+    display:block;
+    width:200%;
+    height:100%;
+    position:relative;
+    z-index:1;
+    animation: wave-flow-front 11s ease-in-out infinite;
+  }
+  .wave-svg.mid{
+    position:absolute;
+    left:0; top:12px;
+    width:200%;
+    height:100%;
+    z-index:0;
+    opacity:0.55;
+    animation: wave-flow-mid 16s ease-in-out infinite;
+  }
+  .wave-svg.back{
+    position:absolute;
+    left:0; top:24px;
+    width:200%;
+    height:100%;
+    z-index:0;
+    opacity:0.38;
+    animation: wave-flow-back 24s ease-in-out infinite;
+  }
+  @keyframes wave-flow-front{
+    0%{ transform: translate(0,0); }
+    25%{ transform: translate(-14%,-7px); }
+    50%{ transform: translate(-28%,0); }
+    75%{ transform: translate(-40%,-7px); }
+    100%{ transform: translate(-50%,0); }
+  }
+  @keyframes wave-flow-mid{
+    0%{ transform: translate(-50%,0); }
+    30%{ transform: translate(-32%,6px); }
+    60%{ transform: translate(-14%,0); }
+    100%{ transform: translate(0,6px); }
+  }
+  @keyframes wave-flow-back{
+    0%{ transform: translate(0,0); }
+    50%{ transform: translate(-25%,5px); }
+    100%{ transform: translate(-50%,0); }
+  }
+
+  /* ---------- Mobile responsive ---------- */
+  @media (max-width: 700px){
+    .video-session{ padding: 44px 0 150px; }
+    .video-tile{ width: 190px; height: 120px; border-radius: 12px; border-width: 3px; }
+    .video-tile .tile-title{ font-size: 11px; }
+    .marquee-track{ gap: 14px; }
+    .rows-wrap{ gap: 18px; }
+    .session-head{ margin-bottom: 20px; }
+    .session-heading{ margin-bottom: 6px; }
+    .spotlight-card{ width: 88vw; }
+    .btn-subscribe{ margin-top: 24px; }
+    .wave{ height: 132px; }
+    /* keep just the front wave on mobile — mid/back read as clutter at this width */
+    .wave-svg.mid, .wave-svg.back{ display:none; }
+  }
+
+  @media (max-width: 380px){
+    .wave{ height: 108px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .session-head{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<section class="video-session" id="youtubeSession">
+
+  <div class="session-head">
+    <h2 class="session-heading">Endless Fun &amp; Learning For Little Ones!</h2>
+    <p class="session-subheading">Tap any video to watch it on YouTube</p>
+  </div>
+
+  <div class="rows-wrap">
+    <!-- TOP ROW: moves left -> right -->
+    <div class="marquee-row top" id="rowTop">
+      <div class="marquee-track" id="trackTop"></div>
+    </div>
+
+    <!-- BOTTOM ROW: moves right -> left -->
+    <div class="marquee-row bottom" id="rowBottom">
+      <div class="marquee-track" id="trackBottom"></div>
+    </div>
+  </div>
+
+  <button class="btn btn-subscribe" id="exploreBtn">Start exploring
+    <span class="arrow-circ">
+      <svg viewBox="0 0 24 24" width="10" height="10" fill="#fff"><path d="M6 4 L20 12 L6 20 Z"></path></svg>
+    </span>
+  </button>
+
+  <!-- SPOTLIGHT POPUP -->
+  <div class="spotlight-overlay" id="spotlightOverlay">
+    <div class="spotlight-card" id="spotlightCard">
+      <span class="click-hint">Tap to open ▶</span>
+      <iframe id="spotlightIframe"
+        src=""
+        title="Featured video"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
+      <div class="spot-title" id="spotlightTitle"></div>
+    </div>
+  </div>
+
+  <!-- ANIMATED WAVE FOOTER: 3 gradient layers, each drifting + bobbing at a different speed -->
+  <div class="wave">
+    <svg class="wave-svg back" viewBox="0 0 2880 160" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="waveGradBack" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E4F6FD"/>
+          <stop offset="100%" stop-color="#C3EBFB"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#waveGradBack)" d="M0,55 C120,27 240,27 360,55 C480,83 600,83 720,55 C840,27 960,27 1080,55 C1200,83 1320,83 1440,55 C1560,27 1680,27 1800,55 C1920,83 2040,83 2160,55 C2280,27 2400,27 2520,55 C2640,83 2760,83 2880,55 L2880,160 L0,160 Z"></path>
+    </svg>
+    <svg class="wave-svg mid" viewBox="0 0 2880 160" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="waveGradMid" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#BFE9FB"/>
+          <stop offset="100%" stop-color="#8FD9F6"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#waveGradMid)" d="M0,65 C120,20 240,20 360,65 C480,110 600,110 720,65 C840,20 960,20 1080,65 C1200,110 1320,110 1440,65 C1560,20 1680,20 1800,65 C1920,110 2040,110 2160,65 C2280,20 2400,20 2520,65 C2640,110 2760,110 2880,65 L2880,160 L0,160 Z"></path>
+    </svg>
+    <svg class="wave-svg front" viewBox="0 0 2880 160" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="waveGradFront" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7FD1F5"/>
+          <stop offset="100%" stop-color="#4FB9EE"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#waveGradFront)" d="M0,78 C120,16 240,16 360,78 C480,140 600,140 720,78 C840,16 960,16 1080,78 C1200,140 1320,140 1440,78 C1560,16 1680,16 1800,78 C1920,140 2040,140 2160,78 C2280,16 2400,16 2520,78 C2640,140 2760,140 2880,78 L2880,160 L0,160 Z"></path>
+    </svg>
+  </div>
+
+</section>
+
+<script>
+(function(){
+
+  /* ============================================================
+     1) VIDEO LIST — replace the "id" values with your real
+        YouTube video IDs (the part after watch?v= in the URL).
+        "title" is only used as the little caption on each card.
+  ============================================================ */
+  const VIDEOS = [
+    { id: "VIDEO_ID_1",  title: "Dino Dance Party" },
+    { id: "VIDEO_ID_2",  title: "Fishbowl Counting" },
+    { id: "VIDEO_ID_3",  title: "Tractor Match-Up" },
+    { id: "VIDEO_ID_4",  title: "Strawberry Jam Fun" },
+    { id: "VIDEO_ID_5",  title: "Bunny Paints Eggs" },
+    { id: "VIDEO_ID_6",  title: "Museum Adventure" },
+    { id: "VIDEO_ID_7",  title: "Monkey Mayor" },
+    { id: "VIDEO_ID_8",  title: "Sparkle Slime Lab" },
+    { id: "VIDEO_ID_9",  title: "Giraffe's Violin Song" },
+    { id: "VIDEO_ID_10", title: "Puppet Show Night" },
+    { id: "VIDEO_ID_11", title: "Officer Monkey On Duty" },
+    { id: "VIDEO_ID_12", title: "Potato & Eggplant Pals" },
+    { id: "VIDEO_ID_13", title: "Puppy Park Day" },
+  ];
+
+  const thumb = (id) => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+  const watchUrl = (id) => `https://www.youtube.com/watch?v=${id}`;
+  const embedUrl = (id) => `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${id}`;
+
+  function buildTile(video){
+    const tile = document.createElement('div');
+    tile.className = 'video-tile';
+    tile.innerHTML = `
+      <img src="${thumb(video.id)}" alt="${video.title}" loading="lazy">
+      <div class="play-badge">
+        <svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="rgba(0,0,0,0.35)"/><polygon points="24,18 44,30 24,42" fill="#fff"/></svg>
+      </div>
+      <div class="tile-title">${video.title}</div>
+    `;
+    tile.addEventListener('click', () => window.open(watchUrl(video.id), '_blank', 'noopener'));
+    return tile;
+  }
+
+  function fillTrack(trackEl, list){
+    // duplicate the list so the CSS marquee loops seamlessly
+    [...list, ...list].forEach(v => trackEl.appendChild(buildTile(v)));
+  }
+
+  const trackTop = document.getElementById('trackTop');
+  const trackBottom = document.getElementById('trackBottom');
+
+  // split videos across the two rows
+  const half = Math.ceil(VIDEOS.length / 2);
+  fillTrack(trackTop, VIDEOS.slice(0, half));
+  fillTrack(trackBottom, VIDEOS.slice(half).length ? VIDEOS.slice(half) : VIDEOS);
+
+  /* ============================================================
+     2) SPOTLIGHT CYCLE
+        Every CYCLE_MS: pause both rows, fade in the dark overlay,
+        pop a random video bigger in the center, play for 3s,
+        then fade out and resume scrolling.
+  ============================================================ */
+  const rowTop = document.getElementById('rowTop');
+  const rowBottom = document.getElementById('rowBottom');
+  const overlay = document.getElementById('spotlightOverlay');
+  const spotlightIframe = document.getElementById('spotlightIframe');
+  const spotlightTitle = document.getElementById('spotlightTitle');
+  const spotlightCard = document.getElementById('spotlightCard');
+
+  const CYCLE_MS = 9000;   // how often a video pops up
+  const SHOW_MS  = 3000;   // how long the spotlight stays up
+
+  let currentSpotlight = null;
+
+  function showSpotlight(){
+    const video = VIDEOS[Math.floor(Math.random() * VIDEOS.length)];
+    currentSpotlight = video;
+    spotlightIframe.src = embedUrl(video.id);
+    spotlightTitle.textContent = video.title;
+
+    rowTop.classList.add('paused');
+    rowBottom.classList.add('paused');
+    overlay.classList.add('active');
+
+    setTimeout(hideSpotlight, SHOW_MS);
+  }
+
+  function hideSpotlight(){
+    overlay.classList.remove('active');
+    rowTop.classList.remove('paused');
+    rowBottom.classList.remove('paused');
+    // stop the iframe after the fade-out finishes
+    setTimeout(() => { spotlightIframe.src = ''; }, 500);
+  }
+
+  spotlightCard.addEventListener('click', () => {
+    if (currentSpotlight) window.open(watchUrl(currentSpotlight.id), '_blank', 'noopener');
+  });
+
+  setInterval(showSpotlight, CYCLE_MS);
+
+  /* ============================================================
+     3) START EXPLORING BUTTON
+        Defaults to smoothly scrolling to the top of this session.
+        Point this at your homepage/exploration section instead —
+        e.g. window.location.href = 'explore.html'
+  ============================================================ */
+  document.getElementById('exploreBtn').addEventListener('click', () => {
+    document.getElementById('youtubeSession').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  /* Respect users who prefer reduced motion */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.documentElement.style.setProperty('--reduce-motion', '1');
+    document.querySelectorAll('.marquee-track, .wave-svg').forEach(el => {
+      el.style.animation = 'none';
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

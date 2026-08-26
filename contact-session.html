@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Ultimate Kids</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple-dark:#26105F;
+    --purple-mid:#5331CD;
+    --pink:#F2679B;
+    --pink-deep:#E14E82;
+    --yellow:#F7A824;
+    --green:#3FAE6B;
+    --text-body:#5B5A72;
+    --sky-top:#BEE7F9;
+    --sky-bottom:#DDF3FC;
+    --orange:#FF7A1A;
+    --orange-deep:#F2650A;
+    --card-bg:#FFFFFF;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html,body{
+    width:100%;
+    overflow-x:hidden;
+    font-family:'Poppins', sans-serif;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; }
+  }
+
+  /* ============ SECTION WRAPPER ============ */
+  .contact-session{
+    position:relative;
+    min-height:100vh;
+    min-height:100svh;
+    overflow:hidden;
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 55%, var(--sky-bottom) 100%);
+    padding: 120px 40px 70px;
+  }
+
+  /* orange arc flowing down from the session above */
+  .top-wave{
+    position:absolute;
+    top:-6%;
+    left:-5%;
+    width:110%;
+    height:190px;
+    background: linear-gradient(180deg, var(--orange) 0%, var(--orange-deep) 100%);
+    border-radius:0 0 50% 50% / 0 0 100% 100%;
+    z-index:1;
+    animation: top-wave-breathe 7s ease-in-out infinite;
+  }
+  @keyframes top-wave-breathe{
+    0%,100%{ transform: scaleX(1) translateY(0); }
+    50%{ transform: scaleX(1.02) translateY(-4px); }
+  }
+
+  /* ============ DECORATIVE STARS / DOTS ============ */
+  .deco{
+    position:absolute;
+    z-index:2;
+    pointer-events:none;
+  }
+  .cross{
+    animation: twinkle 2.6s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:0.35; transform:scale(0.75) rotate(0deg); }
+    50%{ opacity:1; transform:scale(1.1) rotate(10deg); }
+  }
+  .dot{
+    border-radius:50%;
+    animation: sparkle-pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes sparkle-pulse{
+    0%,100%{ opacity:0.4; transform:scale(0.85); }
+    50%{ opacity:1; transform:scale(1.15); }
+  }
+
+  /* ============ FLOATING MUSIC NOTES ============ */
+  .note-drift{
+    position:absolute;
+    z-index:3;
+    pointer-events:none;
+    opacity:0;
+    animation: note-drift-move var(--dur, 9s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes note-drift-move{
+    0%{ opacity:0; transform:translate(0,0) scale(.55) rotate(var(--rot0, -8deg)); }
+    14%{ opacity:.85; }
+    50%{ opacity:.6; transform:translate(calc(var(--dx, 40px) * .55), calc(var(--dy, -90px) * .55)) scale(.9) rotate(0deg); }
+    86%{ opacity:0; }
+    100%{ opacity:0; transform:translate(var(--dx, 40px), var(--dy, -90px)) scale(1.05) rotate(var(--rot1, 10deg)); }
+  }
+
+  /* ============ KITES ============ */
+  .kite{
+    position:absolute;
+    z-index:3;
+    pointer-events:none;
+    filter: drop-shadow(0 10px 14px rgba(38,16,95,0.18));
+  }
+  .kite-left{
+    top:1%;
+    left:3%;
+    width:190px;
+    animation: kite-sway-left 6.5s ease-in-out infinite;
+    transform-origin: 30% 15%;
+  }
+  .kite-right{
+    top:2%;
+    right:4%;
+    width:190px;
+    animation: kite-sway-right 7.5s ease-in-out infinite;
+    transform-origin: 60% 15%;
+  }
+  @keyframes kite-sway-left{
+    0%{ transform: translate(0,0) rotate(-6deg); }
+    25%{ transform: translate(6px,-18px) rotate(2deg); }
+    50%{ transform: translate(-4px,-28px) rotate(6deg); }
+    75%{ transform: translate(4px,-14px) rotate(-2deg); }
+    100%{ transform: translate(0,0) rotate(-6deg); }
+  }
+  @keyframes kite-sway-right{
+    0%{ transform: translate(0,-6px) rotate(6deg); }
+    25%{ transform: translate(-8px,10px) rotate(-3deg); }
+    50%{ transform: translate(4px,22px) rotate(-7deg); }
+    75%{ transform: translate(-6px,8px) rotate(1deg); }
+    100%{ transform: translate(0,-6px) rotate(6deg); }
+  }
+
+  /* ============ DRIFTING CLOUDS ============ */
+  .cloud{
+    position:absolute;
+    z-index:1;
+    pointer-events:none;
+    opacity:0.75;
+  }
+  .cloud-a{
+    top:11%;
+    width:130px;
+    left:-160px;
+    animation: cloud-drift-1 34s linear infinite;
+  }
+  .cloud-b{
+    top:19%;
+    width:90px;
+    left:-140px;
+    opacity:0.6;
+    animation: cloud-drift-2 46s linear infinite;
+    animation-delay: -14s;
+  }
+  .cloud-c{
+    top:8%;
+    width:70px;
+    left:-120px;
+    opacity:0.55;
+    animation: cloud-drift-1 28s linear infinite;
+    animation-delay: -9s;
+  }
+  @keyframes cloud-drift-1{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(calc(100vw + 200px)); }
+  }
+  @keyframes cloud-drift-2{
+    from{ transform: translateX(0) translateY(0); }
+    50%{ transform: translateX(calc(50vw + 100px)) translateY(10px); }
+    to{ transform: translateX(calc(100vw + 200px)) translateY(0); }
+  }
+
+  /* ============ SESSION HEADING ============ */
+  .session-head{
+    position:relative;
+    z-index:5;
+    text-align:center;
+    max-width:640px;
+    margin:0 auto 44px;
+    animation: headingRise .9s cubic-bezier(.2,.8,.25,1) both;
+  }
+  @keyframes headingRise{
+    from{ opacity:0; transform: translateY(-24px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+  .session-heading{
+    font-family:'Fredoka', sans-serif;
+    font-weight:700;
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    color: var(--purple-dark);
+  }
+  .session-sub{
+    margin-top:10px;
+    font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+    color: var(--text-body);
+    line-height:1.6;
+  }
+
+  /* ============ MAIN GRID ============ */
+  .contact-grid{
+    position:relative;
+    z-index:5;
+    max-width:1320px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 24px;
+    align-items:center;
+  }
+
+  /* ---- left column: characters ---- */
+  .contact-left{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .char-stage{
+    position:relative;
+    width: 620px;
+    height: 620px;
+  }
+  .char-shadow{
+    position:absolute;
+    left:2%; right:34%;
+    bottom:0%;
+    height:10%;
+    background: radial-gradient(ellipse at center, rgba(38,16,95,0.28) 0%, rgba(38,16,95,0.14) 45%, rgba(38,16,95,0) 78%);
+    filter: blur(3px);
+    z-index:1;
+  }
+  .char-girl{
+    position:absolute;
+    left:0;
+    bottom:0;
+    height:100%;
+    width:auto;
+    z-index:4;
+    filter: drop-shadow(0 12px 14px rgba(38,16,95,0.18));
+    animation: char-bob 5s ease-in-out infinite;
+  }
+  .char-panda{
+    position:absolute;
+    left:31%;
+    bottom:0;
+    height:60%;
+    width:auto;
+    z-index:3;
+    filter: drop-shadow(0 12px 14px rgba(38,16,95,0.16));
+    animation: char-bob 5.6s ease-in-out infinite;
+    animation-delay: .3s;
+  }
+  @keyframes char-bob{
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(-9px); }
+  }
+
+  .monkey-row{
+    position:absolute;
+    left:0;
+    bottom:0;
+    display:flex;
+    align-items:flex-end;
+    gap: 5px;
+    z-index:5;
+  }
+  .monkey-row img{
+    height: 24%;
+    width:auto;
+    filter: drop-shadow(0 8px 10px rgba(38,16,95,0.16));
+    animation: char-bob 4.6s ease-in-out infinite;
+  }
+  /* percentage heights on flex children need a fixed reference —
+     reuse the stage height via an explicit px fallback per breakpoint */
+  .char-stage .monkey-row{ height:100%; }
+  .monkey-row img:nth-child(2){ animation-delay:.5s; }
+  .monkey-row img:nth-child(3){ animation-delay:1s; }
+  .monkey-row img:nth-child(4){ animation-delay:1.5s; }
+  .monkey-row img:nth-child(5){ animation-delay:2s; }
+
+  /* ---- contact info: sits below the form, as one line ---- */
+  .contact-info{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    gap: 14px;
+    margin-top: 22px;
+    background: rgba(255,255,255,0.55);
+    border-radius: 18px;
+    padding: 16px 20px;
+  }
+  .info-item{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    min-width:0;
+  }
+  .info-icon{
+    flex-shrink:0;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 6px 14px rgba(38,16,95,0.18);
+  }
+  .info-icon svg{ width:15px; height:15px; }
+  .info-icon.pink{ background: var(--pink); }
+  .info-icon.yellow{ background: var(--yellow); }
+  .info-icon.green{ background: var(--green); }
+  .info-text{
+    min-width:0;
+    overflow:hidden;
+  }
+  .info-text .info-label{
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    font-size:0.85rem;
+    color: var(--purple-dark);
+    white-space:nowrap;
+  }
+  .info-text .info-value{
+    font-size:0.78rem;
+    color: var(--text-body);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:block;
+  }
+
+  /* ============ FORM CARD ============ */
+  .contact-right{
+    display:flex;
+    flex-direction:column;
+  }
+  .contact-form-card{
+    position:relative;
+    background: var(--card-bg);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: 0 20px 46px rgba(38,16,95,0.14);
+  }
+  .form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:16px;
+  }
+  .form-field{
+    position:relative;
+  }
+  .form-field .field-icon{
+    position:absolute;
+    left:16px;
+    top:50%;
+    transform:translateY(-50%);
+    width:18px;
+    height:18px;
+    color: var(--purple-mid);
+    pointer-events:none;
+  }
+  .form-field.textarea .field-icon{
+    top:20px;
+    transform:none;
+  }
+  .form-field input,
+  .form-field textarea{
+    width:100%;
+    font-family:'Poppins', sans-serif;
+    font-size:0.92rem;
+    color: var(--purple-dark);
+    background: #F5F3FC;
+    border: 1.6px solid transparent;
+    border-radius: 14px;
+    padding: 14px 16px 14px 46px;
+    outline:none;
+    transition: border-color .18s ease, background .18s ease;
+  }
+  .form-field textarea{
+    resize:vertical;
+    min-height:120px;
+    line-height:1.5;
+  }
+  .form-field input::placeholder,
+  .form-field textarea::placeholder{
+    color:#9C99B5;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus{
+    border-color: var(--pink);
+    background:#fff;
+  }
+  .form-field{ margin-bottom:16px; }
+  .form-row .form-field{ margin-bottom:0; }
+
+  /* honeypot field, hidden from real people */
+  .hp-field{
+    position:absolute;
+    left:-9999px;
+    top:-9999px;
+    opacity:0;
+    pointer-events:none;
+  }
+
+  .form-footer{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:14px;
+    margin-top:4px;
+  }
+  .form-status{
+    font-size:0.85rem;
+    font-weight:500;
+    flex:1;
+    min-height:1.2em;
+  }
+  .form-status.success{ color: var(--green); }
+  .form-status.error{ color:#D6455C; }
+
+  /* ============ SHARED BUTTON STYLE (same model as previous session) ============ */
+  .btn{
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    font-size:0.92rem;
+    border:none;
+    cursor:pointer;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn:disabled{
+    opacity:0.7;
+    cursor:default;
+    transform:none;
+  }
+  .btn-send{
+    background: var(--pink);
+    color:#fff;
+    padding: 13px 10px 13px 26px;
+    box-shadow: 0 8px 18px rgba(242,103,155,0.38);
+  }
+  .btn-send:hover{ box-shadow: 0 10px 22px rgba(242,103,155,0.48); }
+  .btn-send::before{
+    content:'';
+    position:absolute;
+    top:0; left:-45%;
+    width:30%; height:100%;
+    background: linear-gradient(115deg, transparent, rgba(255,255,255,0.6), transparent);
+    transform: skewX(-18deg);
+    animation: shine-sweep 3.4s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  @keyframes shine-sweep{
+    0%{ left:-45%; }
+    30%{ left:130%; }
+    100%{ left:130%; }
+  }
+  .btn .arrow-circ{
+    position:relative;
+    width:22px; height:22px;
+    border-radius:50%;
+    background: rgba(255,255,255,0.28);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .btn .arrow-circ svg{
+    position:relative;
+    z-index:2;
+    animation: play-nudge 1.8s ease-in-out infinite;
+  }
+  .btn .arrow-circ::before{
+    content:'';
+    position:absolute;
+    inset:-7px;
+    border-radius:50%;
+    border:1.6px solid rgba(255,255,255,0.75);
+    animation: ring-pulse 1.8s ease-out infinite;
+  }
+  .btn .arrow-circ::after{
+    content:'';
+    position:absolute;
+    inset:-3px;
+    border-radius:50%;
+    border:1.6px solid rgba(255,255,255,0.55);
+    animation: ring-pulse 1.8s ease-out infinite;
+    animation-delay:.5s;
+  }
+  @keyframes ring-pulse{
+    0%{ transform:scale(0.75); opacity:0.9; }
+    75%{ transform:scale(1.9); opacity:0; }
+    100%{ transform:scale(1.9); opacity:0; }
+  }
+  @keyframes play-nudge{
+    0%,100%{ transform:translateX(0); }
+    50%{ transform:translateX(1px) scale(1.08); }
+  }
+
+  /* ============ THANK YOU FOOTER LINE ============ */
+  .thanks-line{
+    position:relative;
+    z-index:5;
+    text-align:center;
+    margin-top:44px;
+    font-size:0.92rem;
+    color: var(--purple-dark);
+    font-weight:500;
+  }
+  .thanks-line .heart{
+    color: var(--pink);
+    display:inline-block;
+    animation: heartbeat 1.6s ease-in-out infinite;
+  }
+  @keyframes heartbeat{
+    0%,100%{ transform:scale(1); }
+    15%{ transform:scale(1.22); }
+    30%{ transform:scale(1); }
+    45%{ transform:scale(1.15); }
+    60%{ transform:scale(1); }
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 980px){
+    .contact-session{ padding: 96px 24px 56px; }
+    .contact-grid{
+      grid-template-columns:1fr;
+      max-width:520px;
+    }
+    .session-head{ margin-bottom:30px; }
+    .char-stage{ width:380px; height:380px; margin:0 auto; }
+    .kite{ width:120px; }
+    .kite-left{ top:0%; }
+    .kite-right{ top:1%; }
+
+    /* char stage, form, then contact info — already in that DOM order
+       via .contact-left -> .contact-right, so mobile just stacks naturally */
+    .contact-left{ margin-bottom:20px; }
+    .contact-right{ gap:20px; }
+    .contact-info{
+      flex-direction:column;
+      align-items:stretch;
+      justify-content:flex-start;
+      gap: 16px;
+      margin-top:0;
+      background: rgba(255,255,255,0.6);
+      border-radius:18px;
+      padding: 18px 20px;
+    }
+    .info-item{ flex-direction:row; text-align:left; gap:14px; }
+    .info-text .info-value{ white-space:normal; }
+    .contact-form-card{ padding:22px; }
+    .form-row{ grid-template-columns:1fr; gap:12px; }
+  }
+
+  @media (max-width: 480px){
+    .contact-session{ padding: 84px 16px 46px; }
+    .session-heading{ font-size:1.7rem; }
+    .char-stage{ width:300px; height:300px; }
+    .kite{ width:60px; }
+    .form-footer{ flex-direction:column; align-items:stretch; }
+    .btn-send{ justify-content:center; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .session-head{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<section class="contact-session" id="contactSession">
+
+  <div class="top-wave"></div>
+
+  <!-- drifting background clouds -->
+  <img class="cloud cloud-a" src="./assets/cloud.png" alt="">
+  <img class="cloud cloud-b" src="./assets/cloud.png" alt="">
+  <img class="cloud cloud-c" src="./assets/cloud.png" alt="">
+
+  <!-- decorative crosses / dots -->
+  <svg class="deco cross" style="top:10%; left:20%; width:16px;" viewBox="0 0 24 24" fill="#F7A824"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+  <svg class="deco cross" style="top:8%; left:33%; width:11px; animation-delay:.6s;" viewBox="0 0 24 24" fill="#F2679B"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+  <svg class="deco cross" style="top:24%; left:36%; width:13px; animation-delay:1.2s;" viewBox="0 0 24 24" fill="#3FAE6B"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+  <svg class="deco cross" style="top:66%; right:16%; width:14px; animation-delay:.4s;" viewBox="0 0 24 24" fill="#F7A824"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
+  <span class="deco dot" style="top:33%; right:12%; width:9px; height:9px; background:#F2679B;"></span>
+  <span class="deco dot" style="top:88%; left:14%; width:8px; height:8px; background:#F7A824; animation-delay:.8s;"></span>
+
+  <!-- floating fading music notes -->
+  <svg class="deco note-drift" style="top:70%; left:18%; width:17px; --dx:34px; --dy:-110px; --dur:8.5s; --delay:.4s;" viewBox="0 0 24 24" fill="#5331CD"><path d="M9 18V5l12-2v13" stroke="#5331CD" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="#5331CD"/><circle cx="18" cy="16" r="3" fill="#5331CD"/></svg>
+  <svg class="deco note-drift" style="top:20%; left:46%; width:14px; --dx:-30px; --dy:90px; --dur:10s; --delay:2.1s;" viewBox="0 0 24 24" fill="#F2679B"><path d="M9 18V5l12-2v13" stroke="#F2679B" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="#F2679B"/><circle cx="18" cy="16" r="3" fill="#F2679B"/></svg>
+  <svg class="deco note-drift" style="top:78%; left:55%; width:19px; --dx:-46px; --dy:-120px; --dur:9.4s; --delay:1.2s;" viewBox="0 0 24 24" fill="#F7A824"><path d="M9 18V5l12-2v13" stroke="#F7A824" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="#F7A824"/><circle cx="18" cy="16" r="3" fill="#F7A824"/></svg>
+  <svg class="deco note-drift" style="top:50%; left:4%; width:13px; --dx:40px; --dy:80px; --dur:7.6s; --delay:3.3s;" viewBox="0 0 24 24" fill="#3FAE6B"><path d="M9 18V5l12-2v13" stroke="#3FAE6B" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="#3FAE6B"/><circle cx="18" cy="16" r="3" fill="#3FAE6B"/></svg>
+  <svg class="deco note-drift" style="top:60%; left:90%; width:16px; --dx:-38px; --dy:-95px; --dur:8.8s; --delay:.9s;" viewBox="0 0 24 24" fill="#5331CD"><path d="M9 18V5l12-2v13" stroke="#5331CD" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="#5331CD"/><circle cx="18" cy="16" r="3" fill="#5331CD"/></svg>
+  <svg class="deco note-drift" style="top:34%; left:88%; width:12px; --dx:-44px; --dy:-70px; --dur:6.9s; --delay:2.7s;" viewBox="0 0 24 24" fill="#F2679B"><path d="M9 18V5l12-2v13" stroke="#F2679B" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="#F2679B"/><circle cx="18" cy="16" r="3" fill="#F2679B"/></svg>
+  <svg class="deco note-drift" style="top:12%; left:64%; width:15px; --dx:36px; --dy:-85px; --dur:9.1s; --delay:1.6s;" viewBox="0 0 24 24" fill="#F7A824"><path d="M9 18V5l12-2v13" stroke="#F7A824" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="#F7A824"/><circle cx="18" cy="16" r="3" fill="#F7A824"/></svg>
+  <svg class="deco note-drift" style="top:44%; left:28%; width:13px; --dx:-32px; --dy:-95px; --dur:7.3s; --delay:.2s;" viewBox="0 0 24 24" fill="#3FAE6B"><path d="M9 18V5l12-2v13" stroke="#3FAE6B" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="#3FAE6B"/><circle cx="18" cy="16" r="3" fill="#3FAE6B"/></svg>
+  <svg class="deco note-drift" style="top:82%; left:38%; width:18px; --dx:42px; --dy:-105px; --dur:10.4s; --delay:2.4s;" viewBox="0 0 24 24" fill="#5331CD"><path d="M9 18V5l12-2v13" stroke="#5331CD" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="#5331CD"/><circle cx="18" cy="16" r="3" fill="#5331CD"/></svg>
+  <svg class="deco note-drift" style="top:6%; left:8%; width:12px; --dx:30px; --dy:70px; --dur:6.4s; --delay:3.8s;" viewBox="0 0 24 24" fill="#F2679B"><path d="M9 18V5l12-2v13" stroke="#F2679B" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="#F2679B"/><circle cx="18" cy="16" r="3" fill="#F2679B"/></svg>
+  <svg class="deco note-drift" style="top:66%; left:76%; width:16px; --dx:-36px; --dy:-80px; --dur:8.2s; --delay:1.9s;" viewBox="0 0 24 24" fill="#F7A824"><path d="M9 18V5l12-2v13" stroke="#F7A824" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="#F7A824"/><circle cx="18" cy="16" r="3" fill="#F7A824"/></svg>
+
+  <!-- kites -->
+  <img class="kite kite-left" src="./assets/kite-1.png" alt="Kite">
+  <img class="kite kite-right" src="./assets/kite-2.png" alt="Kite">
+
+  <div class="session-head">
+    <h2 class="session-heading">Contact Us</h2>
+    <p class="session-sub">We'd love to hear from you! Drop us a message and we'll get back to you as soon as possible.</p>
+  </div>
+
+  <div class="contact-grid">
+
+    <div class="contact-left">
+
+      <div class="char-stage">
+        <div class="char-shadow"></div>
+        <img class="char-girl" src="./assets/girl.png" alt="Girl mascot">
+        <img class="char-panda" src="./assets/panda.png" alt="Panda mascot holding a tablet">
+        <div class="monkey-row">
+          <img src="./assets/monkey-red.png" alt="Monkey character">
+          <img src="./assets/monkey-pink.png" alt="Monkey character">
+          <img src="./assets/monkey-purple.png" alt="Monkey character">
+          <img src="./assets/monkey-hat.png" alt="Monkey character">
+          <img src="./assets/monkey-yellow.png" alt="Monkey character">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="contact-right">
+      <div class="contact-form-card">
+      <form id="contactForm" novalidate>
+
+        <!-- honeypot: real people never see or fill this in -->
+        <div class="hp-field">
+          <label for="website">Website</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+          </div>
+          <div class="form-field">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M22 6l-10 7L2 6"></path></svg>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          <input type="text" id="subject" name="subject" placeholder="Subject" required>
+        </div>
+
+        <div class="form-field textarea">
+          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+          <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+        </div>
+
+        <div class="form-footer">
+          <span class="form-status" id="formStatus"></span>
+          <button type="submit" class="btn btn-send" id="sendBtn">
+            <span id="sendBtnLabel">Send Message</span>
+            <span class="arrow-circ">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="#fff"><path d="M2 21l21-9L2 3v7l15 2-15 2z"></path></svg>
+            </span>
+          </button>
+        </div>
+
+      </form>
+      </div>
+
+      <div class="contact-info">
+        <div class="info-item">
+          <span class="info-icon pink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>
+          </span>
+          <span class="info-text">
+            <span class="info-label" style="display:block;">Email</span>
+            <span class="info-value">hello@ultimatekids.com</span>
+          </span>
+        </div>
+        <div class="info-item">
+          <span class="info-icon yellow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </span>
+          <span class="info-text">
+            <span class="info-label" style="display:block;">Phone</span>
+            <span class="info-value">+91 98765 43210</span>
+          </span>
+        </div>
+        <div class="info-item">
+          <span class="info-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </span>
+          <span class="info-text">
+            <span class="info-label" style="display:block;">Location</span>
+            <span class="info-value">Pondicherry, India</span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <p class="thanks-line">Thanks for being part of our Ultimate Kids family! <span class="heart">&#10084;</span></p>
+
+</section>
+
+<script>
+(function(){
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  var sendBtn = document.getElementById('sendBtn');
+  var sendBtnLabel = document.getElementById('sendBtnLabel');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    // honeypot: if this hidden field got filled in, silently drop it
+    if (form.website.value) { return; }
+
+    var name = form.name.value.trim();
+    var email = form.email.value.trim();
+    var subject = form.subject.value.trim();
+    var message = form.message.value.trim();
+
+    if (!name || !email || !subject || !message){
+      status.textContent = 'Please fill in every field.';
+      status.className = 'form-status error';
+      return;
+    }
+
+    sendBtn.disabled = true;
+    sendBtnLabel.textContent = 'Sending…';
+    status.textContent = '';
+    status.className = 'form-status';
+
+    var data = new FormData();
+    data.append('name', name);
+    data.append('email', email);
+    data.append('subject', subject);
+    data.append('message', message);
+
+    // Points at contact-form.php sitting alongside this file on your PHP host.
+    // In a plain browser preview (no PHP server) this fetch will fail —
+    // that's expected until this is deployed on a PHP-enabled server.
+    fetch('contact-form.php', { method: 'POST', body: data })
+      .then(function(res){ return res.json().catch(function(){ throw new Error('bad-response'); }); })
+      .then(function(json){
+        if (json && json.success){
+          status.textContent = 'Message sent! We\u2019ll get back to you soon.';
+          status.className = 'form-status success';
+          form.reset();
+        } else {
+          status.textContent = (json && json.message) || 'Something went wrong. Please try again.';
+          status.className = 'form-status error';
+        }
+      })
+      .catch(function(){
+        status.textContent = 'Could not reach the server. Make sure this page is running on a PHP host.';
+        status.className = 'form-status error';
+      })
+      .finally(function(){
+        sendBtn.disabled = false;
+        sendBtnLabel.textContent = 'Send Message';
+      });
+  });
+})();
+</script>
+
+</body>
+</html>
